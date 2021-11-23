@@ -6,8 +6,10 @@ USER root
 COPY centos.repo /etc/yum.repos.d/centos.repo
 # Add Chrome Repo
 COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
+# Add chrome-driver installation script
+COPY install-chrome-driver.sh .
 
-# Install Chrome
-RUN yum install -y google-chrome-stable
+# Install Chrome & chromedriver
+RUN yum install -y google-chrome-stable && ./install-chrome-driver.sh
 
 USER 1001
