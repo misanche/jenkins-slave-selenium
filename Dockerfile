@@ -2,6 +2,8 @@ FROM registry.redhat.io/openshift4/ose-jenkins-agent-maven:latest
 
 USER root
 
+# Copy entitlements
+COPY ./etc-pki-entitlement /etc/pki/entitlement
 # Add CentOS Repo
 #COPY centos.repo /etc/yum.repos.d/centos.repo
 # Add Chrome Repo
