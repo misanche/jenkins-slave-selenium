@@ -4,6 +4,10 @@ USER root
 
 # Copy entitlements
 COPY ./etc-pki-entitlement /etc/pki/entitlement
+# Copy subscription manager configurations
+COPY ./rhsm-conf /etc/rhsm
+COPY ./rhsm-ca /etc/rhsm/ca
+
 # Add CentOS Repo
 #COPY centos.repo /etc/yum.repos.d/centos.repo
 # Add Chrome Repo
