@@ -15,6 +15,30 @@ In order to build an image using Redhat Subscription you need to get the entitle
 
 #### Get the entitlement keys, ca and conf.
 
+
+Get the image
+```
+docker pull registry.access.redhat.com/ubi8/ubi:latest
+```
+
+Create a new container
+```
+docker run --name ubi8 registry.access.redhat.com/ubi8/ubi:latest tail -f /dev/null
+```
+
+Execute a new terminal inside the container and subscribe it with your credentials
+```
+docker exec -ti ubi8 /bin/bash
+subscription-manager register --username=USERNAME --password=PASSWORD
+exit
+```
+
+Get the certificates
+```
+docker cp ubi8:/etc/rhsm rhsm -> conf + ca
+docker cp ubi8:/etc/pki/entitlement entitlement
+
+```
 You need to have a machine subscribed. the files are located at:
 
 Entitlements:
@@ -37,6 +61,7 @@ CA:
  -> redhat-entitlement-authority.pem
  -> redhat-uep.pem
 ```
+
 #### Create the secrets in OCP
 
 ```
