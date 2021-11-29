@@ -1,4 +1,4 @@
-FROM registry.redhat.io/openshift4/ose-jenkins-agent-maven:latest
+FROM registry.redhat.io/openshift4/ose-jenkins-agent-maven:v4.9
 
 USER root
 
@@ -11,6 +11,10 @@ COPY ./rhsm-ca /etc/rhsm/ca
 COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 # Add chrome-driver installation script
 COPY install-chrome-driver.sh .
+# Copy Selenium server
+COPY selenium-server-standalone-3.141.59.jar .
+# Copy Init Script
+COPY init.sh .
 
 # Delete /etc/rhsm-host to use entitlements from the build container
 RUN rm /etc/rhsm-host && \
@@ -28,3 +32,5 @@ RUN rm /etc/rhsm-host && \
 RUN ./install-chrome-driver.sh
 
 USER 1001
+
+ENTRYPOINT [ "sh", "./init.sh" ]
